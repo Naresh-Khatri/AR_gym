@@ -1,13 +1,10 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import findAngle from "angle-between-landmarks"; // ES6
 import Webcam from "react-webcam";
-import * as Pose from "@mediapipe/pose/pose";
+import { Pose, POSE_CONNECTIONS, POSE_LANDMARKS } from "@mediapipe/pose/";
 import { Results } from "@mediapipe/pose";
-import {
-  drawConnectors,
-  drawLandmarks,
-} from "@mediapipe/drawing_utils/drawing_utils";
-import { Camera } from "@mediapipe/camera_utils/camera_utils";
+import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils/";
+import { Camera } from "@mediapipe/camera_utils/";
 import { Box, Container } from "@chakra-ui/react";
 
 const MPPose = () => {
@@ -20,7 +17,7 @@ const MPPose = () => {
 
   useEffect(() => {
     if (!Pose) return;
-    const pose = new Pose.Pose({
+    const pose = new Pose({
       locateFile: (file: string) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
       },
@@ -28,7 +25,7 @@ const MPPose = () => {
     pose.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
-      enableSelfieMode: true,
+      // enableSelfieMode: true,
       enableSegmentation: true,
       smoothSegmentation: false,
       minDetectionConfidence: 0.5,
@@ -96,7 +93,7 @@ const MPPose = () => {
     calc(results);
 
     if (results.poseLandmarks) {
-      drawConnectors(canvasCtx, results.poseLandmarks, Pose.POSE_CONNECTIONS, {
+      drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
         color: "#00FF00",
         lineWidth: 5,
       });
