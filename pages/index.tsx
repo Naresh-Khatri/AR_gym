@@ -5,7 +5,7 @@ import { Pose, POSE_CONNECTIONS, POSE_LANDMARKS } from "@mediapipe/pose/";
 import { Results } from "@mediapipe/pose";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils/";
 import { Camera } from "@mediapipe/camera_utils/";
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 
 const MPPose = () => {
   const webcamRef = useRef<any>(null);
@@ -122,33 +122,22 @@ const MPPose = () => {
   };
 
   return (
-    <Container>
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Box>
+    <Container minW={{ base: "100vw", md: "90vw", lg: "4xl" }}>
+      <Flex w={"100%"} direction={"column"} alignItems={"center"}>
+        <Box w={"100%"}>
           <Webcam
             audio={false}
             mirrored={true}
             ref={webcamRef}
-            style={{
-              display: "none",
-            }}
+            style={{ display: "none" }}
           />
           <canvas
             ref={canvasRef}
             style={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: "0",
-              right: "0",
-              textAlign: "center",
-              width: 800,
-              height: 600,
+              // width: "100%",
+              // height: "auto",
+              width: "auto",
+              height: "100%",
             }}
           ></canvas>
         </Box>
@@ -161,7 +150,7 @@ const MPPose = () => {
           <br />
           {repCount.r} : {angles.r} : {armStates.r}
         </Box>
-      </Box>
+      </Flex>
     </Container>
   );
 };
